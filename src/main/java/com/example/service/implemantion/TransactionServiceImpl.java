@@ -6,17 +6,19 @@ import com.example.model.Account;
 import com.example.model.Transaction;
 import com.example.repository.AccountRepository;
 import com.example.service.TransactionService;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class TransationServiceImpl implements TransactionService {
+@Component
+public class TransactionServiceImpl implements TransactionService {
 
     private final AccountRepository accountRepository;
 
-    public TransationServiceImpl(AccountRepository accountRepository) {
+    public TransactionServiceImpl(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 
@@ -27,7 +29,6 @@ public class TransationServiceImpl implements TransactionService {
     }
 
     private void validateAccount(Account sender, Account receiver){
-
         /**
          * if any of the account is null
          * if account ids are the same (same accountt)
@@ -42,13 +43,9 @@ public class TransationServiceImpl implements TransactionService {
             throw new BadRequestException("Sender account needs to be different than receiver");
         }
 
-        if(accountRepository.findById(sender.getId()).equals(accountRepository.findById(receiver.getId()))){
-            throw new RecordNotFoundException("Sender and Receiver can not be the same");
-        }
-
+        // Verify if we have sender and receiver in the database
         findAccountByID(sender.getId());
         findAccountByID(receiver.getId());
-
     }
 
     private void findAccountByID(UUID id){

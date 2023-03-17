@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import com.example.exception.RecordNotFoundException;
 import com.example.model.Account;
 import org.springframework.stereotype.Component;
 
@@ -22,12 +23,12 @@ public class AccountRepository {
         return accountsList;
     }
 
-    public void findById(UUID id){
+    public Account findById(UUID id){
         // TASK
-
         // write a method, that find the account inside the list, if not
         // throws RecordNotFoundException
-
+        return accountsList.stream().filter(account -> account.getId().equals(id))
+                .findAny().orElseThrow(() -> new RecordNotFoundException("Account is not exist in database"));
     }
 
 
