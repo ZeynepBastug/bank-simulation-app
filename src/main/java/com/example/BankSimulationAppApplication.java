@@ -15,7 +15,7 @@ import java.util.Date;
 public class BankSimulationAppApplication {
 
     public static void main(String[] args) {
-       ApplicationContext container = SpringApplication.run(BankSimulationAppApplication.class, args);
+      ApplicationContext container = SpringApplication.run(BankSimulationAppApplication.class, args);
 
        // get account and transaction service beans
         AccountService accountService = container.getBean(AccountService.class);
